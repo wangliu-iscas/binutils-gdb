@@ -152,6 +152,13 @@ struct riscv_frag_type
 #define TC_FRAG_INIT(fragp, max_bytes) riscv_init_frag (fragp, max_bytes)
 extern void riscv_init_frag (struct frag *, int);
 
+#define TC_FIX_TYPE struct riscv_fixup_type
+struct riscv_fixup_type
+{
+  symbolS *arch_map_symbol;
+};
+#define TC_INIT_FIX_DATA(FIX) ((FIX)->tc_fix_data.arch_map_symbol = NULL)
+
 #define obj_adjust_symtab() riscv_adjust_symtab ()
 extern void riscv_adjust_symtab (void);
 
