@@ -511,7 +511,8 @@ make_mapping_symbol (enum riscv_seg_mstate state,
   symbol_get_bfdsym (symbol)->flags |= (BSF_NO_FLAGS | BSF_LOCAL);
   if (reset_seg_arch_str)
     {
-      /* Store current $x+arch into tc_segment_info.  */
+      /* Store current $x+arch into tc_segment_info, so that we can
+	 refer to the correct $x+arch for each R_RISCV_RELAX.  */
       seg_info (now_seg)->tc_segment_info_data.arch_map_symbol = symbol;
       xfree ((void *) buff);
     }
@@ -1558,6 +1559,8 @@ append_insn (struct riscv_cl_insn *ip, expressionS *address_expr,
 				  address_expr, false, reloc_type);
 
 	  ip->fixp->fx_tcbit = riscv_opts.relax;
+	  ip->fixp->tc_fix_data.arch_map_symbol =
+		seg_info (now_seg)->tc_segment_info_data.arch_map_symbol;
 	}
     }
 
@@ -3731,6 +3734,7 @@ md_apply_fix (fixS *fixP, valueT *valP, segT seg ATTRIBUTE_UNUSED)
   unsigned int subtype;
   bfd_byte *buf = (bfd_byte *) (fixP->fx_frag->fr_literal + fixP->fx_where);
   bool relaxable = false;
+  bool rvc_relaxable = false;
   offsetT loc;
   segT sub_segment;
 
@@ -3747,6 +3751,7 @@ md_apply_fix (fixS *fixP, valueT *valP, segT seg ATTRIBUTE_UNUSED)
       if (fixP->fx_addsy == NULL)
 	fixP->fx_done = true;
       relaxable = true;
+      rvc_relaxable = true;
       break;
 
     case BFD_RELOC_RISCV_GOT_HI20:
@@ -3940,6 +3945,7 @@ md_apply_fix (fixS *fixP, valueT *valP, segT seg ATTRIBUTE_UNUSED)
     case BFD_RELOC_RISCV_CALL:
     case BFD_RELOC_RISCV_CALL_PLT:
       relaxable = true;
+      rvc_relaxable = true;
       break;
 
     case BFD_RELOC_RISCV_PCREL_HI20:
@@ -3964,9 +3970,14 @@ md_apply_fix (fixS *fixP, valueT *valP, segT seg ATTRIBUTE_UNUSED)
   if (relaxable && fixP->fx_tcbit && fixP->fx_addsy != NULL)
     {
       fixP->fx_next = xmemdup (fixP, sizeof (*fixP), sizeof (*fixP));
-      fixP->fx_next->fx_addsy = fixP->fx_next->fx_subsy = NULL;
+      /* Currently only rvc relaxations need $x+arch.  */
+      fixP->fx_next->fx_addsy = (need_arch_map_symbol && rvc_relaxable)
+				? fixP->tc_fix_data.arch_map_symbol : NULL;
+      fixP->fx_next->fx_subsy = NULL;
       fixP->fx_next->fx_r_type = BFD_RELOC_RISCV_RELAX;
       fixP->fx_next->fx_size = 0;
+      /* Set addend to zero.  */
+      fixP->fx_next->fx_offset = 0;
     }
 }
 

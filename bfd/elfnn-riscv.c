@@ -4168,6 +4168,31 @@ typedef bool (*relax_func_t) (bfd *, asection *, asection *,
 			      riscv_pcgp_relocs *,
 			      bool undefined_weak);
 
+/* Check the mapping symbol with architecture string in the R_RISCV_RELAX,
+   to see if rvc is enabled or not.  If we don't find any mapping symbols,
+   then just check the elf header flag as usual.  */
+
+static int
+_bfd_riscv_enable_rvc (bfd *abfd, Elf_Internal_Rela *rel)
+{
+  Elf_Internal_Shdr *symtab_hdr = &elf_symtab_hdr (abfd);
+  int rvc = elf_elfheader (abfd)->e_flags & EF_RISCV_RVC;
+  if (ELFNN_R_SYM (rel->r_info) < symtab_hdr->sh_info)
+    {
+      Elf_Internal_Sym *isym = ((Elf_Internal_Sym *) symtab_hdr->contents
+				+ ELFNN_R_SYM (rel->r_info));
+
+      if (isym->st_shndx == SHN_UNDEF
+	  || isym->st_shndx >= elf_numsections (abfd))
+	return rvc;
+
+      const char *name = bfd_elf_sym_name (abfd, symtab_hdr, isym, NULL);
+      rvc = (name && strncmp (name, "$xrv", 4) == 0
+	     && strstr (name, "_c") != NULL) ? 1 : 0;
+    }
+  return rvc;
+}
+
 /* Relax AUIPC + JALR into JAL.  */
 
 static bool
@@ -4185,7 +4210,8 @@ _bfd_riscv_relax_call (bfd *abfd, asection *sec, asection *sym_sec,
   bfd_vma foff = symval - (sec_addr (sec) + rel->r_offset);
   bool near_zero = (symval + RISCV_IMM_REACH / 2) < RISCV_IMM_REACH;
   bfd_vma auipc, jalr;
-  int rd, r_type, len = 4, rvc = elf_elfheader (abfd)->e_flags & EF_RISCV_RVC;
+  int rd, r_type, len = 4;
+  int rvc = _bfd_riscv_enable_rvc (abfd, rel + 1);
 
   /* If the call crosses section boundaries, an alignment directive could
      cause the PC-relative offset to later increase, so we need to add in the
@@ -4279,7 +4305,6 @@ _bfd_riscv_relax_lui (bfd *abfd,
 {
   bfd_byte *contents = elf_section_data (sec)->this_hdr.contents;
   bfd_vma gp = riscv_global_pointer_value (link_info);
-  int use_rvc = elf_elfheader (abfd)->e_flags & EF_RISCV_RVC;
 
   BFD_ASSERT (rel->r_offset + 4 <= sec->size);
 
@@ -4347,7 +4372,7 @@ _bfd_riscv_relax_lui (bfd *abfd,
      account for this assuming page alignment at worst. In the presence of 
      RELRO segment the linker aligns it by one page size, therefore sections
      after the segment can be moved more than one page. */
-
+  int use_rvc = _bfd_riscv_enable_rvc (abfd, rel + 1);
   if (use_rvc
       && ELFNN_R_TYPE (rel->r_info) == R_RISCV_HI20
       && VALID_CITYPE_LUI_IMM (RISCV_CONST_HIGH_PART (symval))
