@@ -1578,6 +1578,12 @@ riscv_release_subset_list (riscv_subset_list_t *subset_list)
     }
 
   subset_list->tail = NULL;
+
+  if (subset_list->arch_str != NULL)
+    {
+      free ((void*) subset_list->arch_str);
+      subset_list->arch_str = NULL;
+    }
 }
 
 /* Parsing extension version.
@@ -2133,6 +2139,7 @@ riscv_copy_subset_list (riscv_subset_list_t *subset_list)
 {
   riscv_subset_list_t *new = xmalloc (sizeof *new);
   new->head = riscv_copy_subset (new, subset_list->head);
+  new->arch_str = strdup (subset_list->arch_str);
   return new;
 }
 
