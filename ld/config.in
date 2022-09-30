@@ -58,6 +58,9 @@
 /* Additional extension a shared object might have. */
 #undef EXTRA_SHLIB_EXTENSION
 
+/* Define to 1 if you want compressed debug sections with zstd by default. */
+#undef FLAG_ZSTD_COMPRESS_DEBUG
+
 /* Define to choose default GOT handling scheme */
 #undef GOT_HANDLING_DEFAULT
 

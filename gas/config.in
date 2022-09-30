@@ -71,6 +71,9 @@
    language is requested. */
 #undef ENABLE_NLS
 
+/* Define to 1 if you want compressed debug sections with zstd by default. */
+#undef FLAG_ZSTD_COMPRESS_DEBUG
+
 /* Define to 1 if you have the declaration of `asprintf', and to 0 if you
    don't. */
 #undef HAVE_DECL_ASPRINTF

@@ -2,6 +2,9 @@
 
 * ld now supports zstd compressed debug sections.  The new option
   --compress-debug-sections=zstd compresses debug sections with zstd.
+* Add a configure option --enable-zstd-compressed-debug-sections
+  in order to use zstd as a default compression algorithm when
+  --compress-debug-sections is used (or enabled by default).
 
 Changes in 2.39:
 

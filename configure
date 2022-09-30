@@ -792,6 +792,7 @@ enable_gold
 enable_ld
 enable_gprofng
 enable_compressed_debug_sections
+enable_zstd_compressed_debug_sections
 enable_year2038
 enable_libquadmath
 enable_libquadmath_support
@@ -1523,6 +1524,9 @@ Optional Features:
   --enable-compressed-debug-sections={all,gas,gold,ld,none}
                           Enable compressed debug sections for gas, gold or ld
                           by default
+  --enable-zstd-compressed-debug-sections
+                          Use zstd for debug info sections compression by
+                          default.
   --enable-year2038       enable support for timestamps past the year 2038
   --disable-libquadmath   do not build libquadmath directory
   --disable-libquadmath-support
@@ -3116,6 +3120,19 @@ if test "${enable_compressed_debug_sections+set}" = set; then :
 
 else
   enable_compressed_debug_sections=
+fi
+
+
+
+# Check whether --enable-zstd_compressed_debug_sections was given.
+if test "${enable_zstd_compressed_debug_sections+set}" = set; then :
+  enableval=$enable_zstd_compressed_debug_sections;
+  if test x"$enable_compressed_debug_sections" = xyes; then
+    as_fn_error $? "no program with compressed debug sections specified" "$LINENO" 5
+  fi
+
+else
+  zstd_compressed_debug_sections=
 fi
 
 

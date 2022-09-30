@@ -2149,8 +2149,13 @@ elf_static_list_options (FILE *file)
   --compress-debug-sections=[none|zlib|zlib-gnu|zlib-gabi|zstd]\n\
 			      Compress DWARF debug sections\n"));
 #ifdef DEFAULT_FLAG_COMPRESS_DEBUG
+#if FLAG_ZSTD_COMPRESS_DEBUG
+  fprintf (file, _("\
+                                Default: zstd\n"));
+#else
   fprintf (file, _("\
                                 Default: zlib-gabi\n"));
+#endif
 #else
   fprintf (file, _("\
                                 Default: none\n"));

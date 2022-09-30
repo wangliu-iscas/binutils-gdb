@@ -226,7 +226,11 @@ print_version_id (void)
 
 #ifdef DEFAULT_FLAG_COMPRESS_DEBUG
 enum compressed_debug_section_type flag_compress_debug
+#if FLAG_ZSTD_COMPRESS_DEBUG
+  = COMPRESS_DEBUG_ZSTD;
+#else
   = COMPRESS_DEBUG_GABI_ZLIB;
+#endif
 #endif
 
 static void
@@ -250,21 +254,25 @@ Options:\n\
 
   fprintf (stream, _("\
   --alternate             initially turn on alternate macro syntax\n"));
-#ifdef DEFAULT_FLAG_COMPRESS_DEBUG
   fprintf (stream, _("\
   --compress-debug-sections[={none|zlib|zlib-gnu|zlib-gabi|zstd}]\n\
-                          compress DWARF debug sections using zlib [default]\n"));
+                          compress DWARF debug sections\n"));
+#ifdef DEFAULT_FLAG_COMPRESS_DEBUG
+#if FLAG_ZSTD_COMPRESS_DEBUG
+  fprintf (stream, _("\
+                            Default: zstd\n"));
+#else
+  fprintf (stream, _("\
+                            Default: zlib-gabi\n"));
+#endif
+#else
+  fprintf (stream, _("\
+                            Default: none\n"));
+#endif
+
   fprintf (stream, _("\
   --nocompress-debug-sections\n\
                           don't compress DWARF debug sections\n"));
-#else
-  fprintf (stream, _("\
-  --compress-debug-sections[={none|zlib|zlib-gnu|zlib-gabi|zstd}]\n\
-                          compress DWARF debug sections using zlib\n"));
-  fprintf (stream, _("\
-  --nocompress-debug-sections\n\
-                          don't compress DWARF debug sections [default]\n"));
-#endif
   fprintf (stream, _("\
   -D                      produce assembler debugging messages\n"));
   fprintf (stream, _("\

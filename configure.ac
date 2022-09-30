@@ -422,6 +422,12 @@ AC_ARG_ENABLE(compressed_debug_sections,
   fi
 ], [enable_compressed_debug_sections=])
 
+
+AC_ARG_ENABLE(zstd_compressed_debug_sections,
+[AS_HELP_STRING([--enable-zstd-compressed-debug-sections],
+		[Use zstd for debug info sections compression by default.])],
+[], [zstd_compressed_debug_sections=])
+
 # Configure extra directories which are host specific
 
 case "${host}" in

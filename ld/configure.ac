@@ -163,6 +163,12 @@ AC_ARG_ENABLE(compressed_debug_sections,
   ,no, | ,none,)  ac_default_compressed_debug_sections=no ;;
 esac])dnl
 
+# Use zstd compression algorithm by default.
+AC_ARG_ENABLE(zstd_compressed_debug_sections,
+	      AS_HELP_STRING([--enable-zstd-compressed-debug-sections],
+	      [Use zstd for debug info sections compression by default]),
+[ac_zstd_compressed_debug_sections=$enableval])dnl
+
 # Decide setting DT_RUNPATH instead of DT_RPATH by default
 ac_default_new_dtags=unset
 # Provide a configure time option to override our default.
@@ -508,6 +514,10 @@ done
 
 if test x$ac_default_compressed_debug_sections = xyes ; then
   AC_DEFINE(DEFAULT_FLAG_COMPRESS_DEBUG, 1, [Define if you want compressed debug sections by default.])
+fi
+
+if test x$ac_zstd_compressed_debug_sections = xyes ; then
+  AC_DEFINE(FLAG_ZSTD_COMPRESS_DEBUG, 1, [Define to 1 if you want compressed debug sections with zstd by default.])
 fi
 
 if test "${ac_default_new_dtags}" = unset; then

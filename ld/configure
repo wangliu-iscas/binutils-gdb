@@ -841,6 +841,7 @@ with_sysroot
 enable_gold
 enable_got
 enable_compressed_debug_sections
+enable_zstd_compressed_debug_sections
 enable_new_dtags
 enable_relro
 enable_textrel_check
@@ -1524,6 +1525,9 @@ Optional Features:
                           multigot)
   --enable-compressed-debug-sections={all,ld,none}
                           compress debug sections by default]
+  --enable-zstd-compressed-debug-sections
+                          Use zstd for debug info sections compression by
+                          default
   --enable-new-dtags      set DT_RUNPATH instead of DT_RPATH by default]
   --enable-relro          enable -z relro in ELF linker by default
   --enable-textrel-check=[yes|no|warning|error]
@@ -11620,7 +11624,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 11623 "configure"
+#line 11627 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11726,7 +11730,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 11729 "configure"
+#line 11733 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -15544,6 +15548,12 @@ if test "${enable_compressed_debug_sections+set}" = set; then :
 esac
 fi
 
+# Use zstd compression algorithm by default.
+# Check whether --enable-zstd_compressed_debug_sections was given.
+if test "${enable_zstd_compressed_debug_sections+set}" = set; then :
+  enableval=$enable_zstd_compressed_debug_sections; ac_zstd_compressed_debug_sections=$enableval
+fi
+
 # Decide setting DT_RUNPATH instead of DT_RPATH by default
 ac_default_new_dtags=unset
 # Provide a configure time option to override our default.
@@ -17337,6 +17347,12 @@ done
 if test x$ac_default_compressed_debug_sections = xyes ; then
 
 $as_echo "#define DEFAULT_FLAG_COMPRESS_DEBUG 1" >>confdefs.h
+
+fi
+
+if test x$ac_zstd_compressed_debug_sections = xyes ; then
+
+$as_echo "#define FLAG_ZSTD_COMPRESS_DEBUG 1" >>confdefs.h
 
 fi
 
