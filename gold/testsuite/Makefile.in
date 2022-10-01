@@ -853,11 +853,13 @@ check_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2) $(am__EXEEXT_3) \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@am__append_78 = gdb_index_test_1.sh \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2.sh \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2_gabi.sh \
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2_zstd.sh \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_3.sh \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_4.sh
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@am__append_79 = gdb_index_test_1.stdout \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2.stdout \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2_gabi.stdout \
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2_zstd.stdout \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_3.stdout \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_4.stdout
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@am__append_80 = gdb_index_test_1.stdout \
@@ -867,6 +869,8 @@ check_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2) $(am__EXEEXT_3) \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2_gabi \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2.stdout \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2 \
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2_zstd.stdout \
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_2_zstd \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_3.stdout \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_3 \
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	gdb_index_test_4.stdout \
@@ -1152,6 +1156,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../config/ax_pthread.m4 \
 	$(top_srcdir)/../config/po.m4 \
 	$(top_srcdir)/../config/progtest.m4 \
 	$(top_srcdir)/../config/zlib.m4 \
+	$(top_srcdir)/../config/zstd.m4 \
 	$(top_srcdir)/../bfd/warning.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -1406,6 +1411,7 @@ am__DEPENDENCIES_1 =
 @NATIVE_OR_CROSS_LINKER_TRUE@binary_unittest_DEPENDENCIES =  \
 @NATIVE_OR_CROSS_LINKER_TRUE@	libgoldtest.a ../libgold.a \
 @NATIVE_OR_CROSS_LINKER_TRUE@	../../libiberty/libiberty.a \
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
@@ -1736,6 +1742,7 @@ leb128_unittest_OBJECTS = $(am_leb128_unittest_OBJECTS)
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1)
 leb128_unittest_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
 	$(leb128_unittest_LDFLAGS) $(LDFLAGS) -o $@
@@ -1760,6 +1767,7 @@ object_unittest_OBJECTS = $(am_object_unittest_OBJECTS)
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1)
 object_unittest_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
 	$(object_unittest_LDFLAGS) $(LDFLAGS) -o $@
@@ -1769,6 +1777,7 @@ overflow_unittest_OBJECTS = $(am_overflow_unittest_OBJECTS)
 @NATIVE_OR_CROSS_LINKER_TRUE@overflow_unittest_DEPENDENCIES =  \
 @NATIVE_OR_CROSS_LINKER_TRUE@	libgoldtest.a ../libgold.a \
 @NATIVE_OR_CROSS_LINKER_TRUE@	../../libiberty/libiberty.a \
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
 @NATIVE_OR_CROSS_LINKER_TRUE@	$(am__DEPENDENCIES_1) \
@@ -2696,6 +2705,8 @@ WARN_WRITE_STRINGS = @WARN_WRITE_STRINGS@
 XGETTEXT = @XGETTEXT@
 YACC = @YACC@
 YFLAGS = @YFLAGS@
+ZSTD_CFLAGS = @ZSTD_CFLAGS@
+ZSTD_LIBS = @ZSTD_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -2881,22 +2892,22 @@ DEPENDENCIES = \
 @NATIVE_OR_CROSS_LINKER_TRUE@object_unittest_SOURCES = object_unittest.cc
 @NATIVE_OR_CROSS_LINKER_TRUE@object_unittest_LDFLAGS = $(THREADFLAGS)
 @NATIVE_OR_CROSS_LINKER_TRUE@object_unittest_LDADD = libgoldtest.a ../libgold.a ../../libiberty/libiberty.a $(LIBINTL) \
-@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(JANSSON_LIBS)
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(ZSTD_LIBS) $(JANSSON_LIBS)
 
 @NATIVE_OR_CROSS_LINKER_TRUE@binary_unittest_SOURCES = binary_unittest.cc
 @NATIVE_OR_CROSS_LINKER_TRUE@binary_unittest_LDFLAGS = $(THREADFLAGS)
 @NATIVE_OR_CROSS_LINKER_TRUE@binary_unittest_LDADD = libgoldtest.a ../libgold.a ../../libiberty/libiberty.a $(LIBINTL) \
-@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(JANSSON_LIBS)
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(ZSTD_LIBS) $(JANSSON_LIBS)
 
 @NATIVE_OR_CROSS_LINKER_TRUE@leb128_unittest_SOURCES = leb128_unittest.cc
 @NATIVE_OR_CROSS_LINKER_TRUE@leb128_unittest_LDFLAGS = $(THREADFLAGS)
 @NATIVE_OR_CROSS_LINKER_TRUE@leb128_unittest_LDADD = libgoldtest.a ../libgold.a ../../libiberty/libiberty.a $(LIBINTL) \
-@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(JANSSON_LIBS)
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(ZSTD_LIBS) $(JANSSON_LIBS)
 
 @NATIVE_OR_CROSS_LINKER_TRUE@overflow_unittest_SOURCES = overflow_unittest.cc
 @NATIVE_OR_CROSS_LINKER_TRUE@overflow_unittest_LDFLAGS = $(THREADFLAGS)
 @NATIVE_OR_CROSS_LINKER_TRUE@overflow_unittest_LDADD = libgoldtest.a ../libgold.a ../../libiberty/libiberty.a $(LIBINTL) \
-@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(JANSSON_LIBS)
+@NATIVE_OR_CROSS_LINKER_TRUE@	$(THREADLIBS) $(LIBDL) $(ZLIB) $(ZSTD_LIBS) $(JANSSON_LIBS)
 
 @GCC_TRUE@@NATIVE_LINKER_TRUE@large_symbol_alignment_SOURCES = large_symbol_alignment.cc
 @GCC_TRUE@@NATIVE_LINKER_TRUE@large_symbol_alignment_DEPENDENCIES = gcctestdir/ld
@@ -6177,6 +6188,13 @@ gdb_index_test_2.sh.log: gdb_index_test_2.sh
 gdb_index_test_2_gabi.sh.log: gdb_index_test_2_gabi.sh
 	@p='gdb_index_test_2_gabi.sh'; \
 	b='gdb_index_test_2_gabi.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+gdb_index_test_2_zstd.sh.log: gdb_index_test_2_zstd.sh
+	@p='gdb_index_test_2_zstd.sh'; \
+	b='gdb_index_test_2_zstd.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -9499,6 +9517,12 @@ uninstall-am:
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@gdb_index_test_2_gabi: gdb_index_test_cdebug_gabi.o gcctestdir/ld
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	$(CXXLINK) -Wl,--gdb-index $<
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@gdb_index_test_2_gabi.stdout: gdb_index_test_2_gabi
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	$(TEST_READELF) --debug-dump=gdb_index $< > $@
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@gdb_index_test_cdebug_zstd.o: gdb_index_test.cc
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	$(CXXCOMPILE) -O0 -g -Wa,--compress-debug-sections=zstd -c -o $@ $<
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@gdb_index_test_2_zstd: gdb_index_test_cdebug_zstd.o gcctestdir/ld
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	$(CXXLINK) -Wl,--gdb-index $<
+@GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@gdb_index_test_2_zstd.stdout: gdb_index_test_2_zstd
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	$(TEST_READELF) --debug-dump=gdb_index $< > $@
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@gdb_index_test_3.o: gdb_index_test_3.c
 @GCC_TRUE@@HAVE_PUBNAMES_TRUE@@NATIVE_LINKER_TRUE@	$(COMPILE) -O0 -g -c -o $@ $<

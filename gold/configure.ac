@@ -566,8 +566,9 @@ else
   AC_LIBOBJ(mremap)
 fi
 
-# Link in zlib if we can.  This allows us to write compressed sections.
+# Link in zlib/zstd if we can.  This allows us to write compressed sections.
 AM_ZLIB
+AC_ZSTD
 
 AC_ARG_ENABLE([threads],
 [[  --enable-threads[=ARG]  multi-threaded linking [ARG={auto,yes,no}]]],
