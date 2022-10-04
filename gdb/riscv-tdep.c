@@ -1770,7 +1770,7 @@ riscv_insn::fetch_instruction (struct gdbarch *gdbarch,
 			       CORE_ADDR addr, int *len)
 {
   enum bfd_endian byte_order = gdbarch_byte_order_for_code (gdbarch);
-  gdb_byte buf[8];
+  gdb_byte buf[22];
   int instlen, status;
 
   /* All insns are at least 16 bits.  */
