@@ -4060,6 +4060,7 @@ riscv_relax_delete_bytes (bfd *abfd,
   unsigned int sec_shndx = _bfd_elf_section_from_bfd_section (abfd, sec);
   struct bfd_elf_section_data *data = elf_section_data (sec);
   bfd_byte *contents = data->this_hdr.contents;
+  asymbol **outsyms = bfd_get_outsymbols (abfd);
 
   /* Actually delete the bytes.  */
   sec->size -= count;
@@ -4156,6 +4157,28 @@ riscv_relax_delete_bytes (bfd *abfd,
 		   && sym_hash->root.u.def.value + sym_hash->size <= toaddr)
 	    sym_hash->size -= count;
 	}
+    }
+
+  /* As linker messages are getting symbols through outsymbols field of abfd,
+     it must be adjusted too.  */
+  if (outsyms == NULL)
+    {
+      if (!bfd_generic_link_read_symbols (abfd))
+	link_info->callbacks->einfo (_("%F%P: %pB: could not read symbols: %E\n"), abfd);
+      outsyms = bfd_get_outsymbols (abfd);
+    }
+
+  for (i = 0; i < bfd_get_symcount (abfd); i++)
+    {
+      asymbol *sym = outsyms[i];
+
+      if (sym->section != sec)
+	continue;
+
+      /* If the symbol is in the range of memory we just moved, we
+	 have to adjust its value.  */
+      if (sym->value > addr && sym->value <= toaddr)
+	sym->value -= count;
     }
 
   return true;

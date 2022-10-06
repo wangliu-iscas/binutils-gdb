@@ -176,6 +176,7 @@ if [istarget "riscv*-*-*"] {
 	[list "Weak reference 64" "-T weakref.ld -m[riscv_choose_lp64_emul]" "" \
 	    "-march=rv64i -mabi=lp64" {weakref64.s} \
 	    {{objdump -d weakref64.d}} "weakref64"]]
+    run_dump_test "undefined-align"
 
     # The following tests require shared library support.
     if ![check_shared_lib_support] {
