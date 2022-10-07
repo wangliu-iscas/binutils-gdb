@@ -63957,3 +63957,10 @@ $(srcdir)/configure: @MAINT@ $(srcdir)/configure.ac $(srcdir)/config/acx.m4 \
 MAKEOVERRIDES=
 
 # end of Makefile.in
+CPP_FOR_BUILD = @CPP_FOR_BUILD@
+CPPFLAGS_FOR_BUILD = @CPPFLAGS_FOR_BUILD@
+DSYMUTIL_FOR_BUILD = @DSYMUTIL_FOR_BUILD@
+GDC_FOR_BUILD = @GDC_FOR_BUILD@
+DSYMUTIL = @DSYMUTIL@
+OTOOL = @OTOOL@
+GDC = @GDC@
