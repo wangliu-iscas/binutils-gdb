@@ -4825,7 +4825,7 @@ void
 md_assemble (char *line)
 {
   unsigned int j;
-  char mnemonic[MAX_MNEM_SIZE], mnem_suffix, *copy = NULL;
+  char mnemonic[MAX_MNEM_SIZE], mnem_suffix = 0, *copy = NULL;
   const char *end, *pass1_mnem = NULL;
   enum i386_error pass1_err = 0;
   const insn_template *t;
@@ -4857,6 +4857,7 @@ md_assemble (char *line)
 	    goto no_match;
 	  /* No point in trying a 2nd pass - it'll only find the same suffix
 	     again.  */
+	  mnem_suffix = i.suffix;
 	  goto match_error;
 	}
       return;
@@ -5012,9 +5013,15 @@ md_assemble (char *line)
 		  cpu_sub_arch_name ? cpu_sub_arch_name : "");
 	  return;
 	case unsupported_64bit:
-	  as_bad (_("`%s' is %s supported in 64-bit mode"),
-		  pass1_mnem ? pass1_mnem : current_templates->start->name,
-		  flag_code == CODE_64BIT ? _("not") : _("only"));
+	  if (ISLOWER (mnem_suffix))
+	    as_bad (_("`%s%c' is %s supported in 64-bit mode"),
+		    pass1_mnem ? pass1_mnem : current_templates->start->name,
+		    mnem_suffix,
+		    flag_code == CODE_64BIT ? _("not") : _("only"));
+	  else
+	    as_bad (_("`%s' is %s supported in 64-bit mode"),
+		    pass1_mnem ? pass1_mnem : current_templates->start->name,
+		    flag_code == CODE_64BIT ? _("not") : _("only"));
 	  return;
 	case invalid_sib_address:
 	  err_msg = _("invalid SIB address");
@@ -5357,6 +5364,23 @@ md_assemble (char *line)
     last_insn.kind = last_insn_other;
 }
 
+/* The Q suffix is generally valid only in 64-bit mode, with very few
+   exceptions: fild, fistp, fisttp, and cmpxchg8b.  Note that for fild
+   and fisttp only one of their two templates is matched below: That's
+   sufficient since other relevant attributes are the same between both
+   respective templates.  */
+static INLINE bool q_suffix_allowed(const insn_template *t)
+{
+  return flag_code == CODE_64BIT
+	 || (t->opcode_modifier.opcodespace == SPACE_BASE
+	     && t->base_opcode == 0xdf
+	     && (t->extension_opcode & 1)) /* fild / fistp / fisttp */
+	 || (t->opcode_modifier.opcodespace == SPACE_0F
+	     && t->base_opcode == 0xc7
+	     && t->opcode_modifier.opcodeprefix == PREFIX_NONE
+	     && t->extension_opcode == 1) /* cmpxchg8b */;
+}
+
 static const char *
 parse_insn (const char *line, char *mnemonic)
 {
@@ -5652,6 +5676,10 @@ parse_insn (const char *line, char *mnemonic)
   for (t = current_templates->start; t < current_templates->end; ++t)
     {
       supported |= cpu_flags_match (t);
+
+      if (i.suffix == QWORD_MNEM_SUFFIX && !q_suffix_allowed (t))
+	supported &= ~CPU_FLAGS_64BIT_MATCH;
+
       if (supported == CPU_FLAGS_PERFECT_MATCH)
 	return l;
     }
@@ -6687,20 +6715,12 @@ match_template (char mnem_suffix)
       for (j = 0; j < MAX_OPERANDS; j++)
 	operand_types[j] = t->operand_types[j];
 
-      /* In general, don't allow
-	 - 64-bit operands outside of 64-bit mode,
-	 - 32-bit operands on pre-386.  */
+      /* In general, don't allow 32-bit operands on pre-386.  */
       specific_error = progress (mnem_suffix ? invalid_instruction_suffix
 					     : operand_size_mismatch);
       j = i.imm_operands + (t->operands > i.imm_operands + 1);
-      if (((i.suffix == QWORD_MNEM_SUFFIX
-	    && flag_code != CODE_64BIT
-	    && !(t->opcode_modifier.opcodespace == SPACE_0F
-		 && t->base_opcode == 0xc7
-		 && t->opcode_modifier.opcodeprefix == PREFIX_NONE
-		 && t->extension_opcode == 1) /* cmpxchg8b */)
-	   || (i.suffix == LONG_MNEM_SUFFIX
-	       && !cpu_arch_flags.bitfield.cpui386))
+      if (i.suffix == LONG_MNEM_SUFFIX
+	  && !cpu_arch_flags.bitfield.cpui386
 	  && (intel_syntax
 	      ? (t->opcode_modifier.mnemonicsize != IGNORESIZE
 		 && !intel_float_operand (t->name))
