@@ -30,4 +30,10 @@ movs:
 .ifdef x86_64
 	movswq	%ax,%rax
 	movswq	(%rax),%rax
+
+	movsl	%eax,%rax
+	movsl	(%rax),%rax
+
+	movslq	%eax,%rax
+	movslq	(%rax),%rax
 .endif
