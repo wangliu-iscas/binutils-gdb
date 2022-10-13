@@ -18,6 +18,7 @@
    MA 02110-1301, USA.  */
 
 #include "sysdep.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <errno.h>
 #include "getopt.h"
@@ -702,6 +703,7 @@ static bitfield opcode_modifiers[] =
   BITFIELD (FWait),
   BITFIELD (IsString),
   BITFIELD (RegMem),
+  BITFIELD (Pass2),
   BITFIELD (BNDPrefixOk),
   BITFIELD (RegKludge),
   BITFIELD (Implicit1stXmm0),
@@ -801,7 +803,7 @@ static bitfield operand_types[] =
 
 static const char *filename;
 static i386_cpu_flags active_cpu_flags;
-static int active_isstring;
+static bool active_isstring, active_pass2;
 
 struct template_arg {
   const struct template_arg *next;
@@ -1169,7 +1171,8 @@ process_i386_opcode_modifier (FILE *table, char *mod, unsigned int space,
   char *str, *next, *last;
   bitfield modifiers [ARRAY_SIZE (opcode_modifiers)];
 
-  active_isstring = 0;
+  active_isstring = false;
+  active_pass2 = false;
 
   /* Copy the default opcode modifier.  */
   memcpy (modifiers, opcode_modifiers, sizeof (modifiers));
@@ -1192,8 +1195,11 @@ process_i386_opcode_modifier (FILE *table, char *mod, unsigned int space,
 
 	      set_bitfield (str, modifiers, val, ARRAY_SIZE (modifiers),
 			    lineno);
+
 	      if (strcasecmp(str, "IsString") == 0)
-		active_isstring = 1;
+		active_isstring = true;
+	      if (strcasecmp(str, "Pass2") == 0)
+		active_pass2 = true;
 
 	      if (strcasecmp(str, "W") == 0)
 		have_w = 1;
@@ -1868,6 +1874,7 @@ process_i386_opcodes (FILE *table)
   for (j = 0; j < i; j++)
     {
       struct opcode_hash_entry *next;
+      bool first_pass2 = false;
 
       for (next = opcode_array[j]; next; next = next->next)
 	{
@@ -1876,6 +1883,14 @@ process_i386_opcodes (FILE *table)
 	  lineno = next->lineno;
 	  last = str + strlen (str);
 	  output_i386_opcode (table, name, str, last, lineno);
+
+	  if (next == opcode_array[j])
+	    first_pass2 = active_pass2;
+	  else if (!first_pass2 && active_pass2)
+	    fprintf (stderr,
+		     "Warning: %s:%d: %s: "
+		     "'Pass2' is recognized only on the first template in a group\n",
+		     filename, lineno, name);
 	}
     }
 
