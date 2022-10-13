@@ -236,6 +236,8 @@ enum i386_error
     unsupported_with_intel_mnemonic,
     unsupported_syntax,
     unsupported,
+    unsupported_on_arch,
+    unsupported_64bit,
     invalid_sib_address,
     invalid_vsib_address,
     invalid_vector_register_set,
@@ -4848,6 +4850,15 @@ md_assemble (char *line)
     {
       if (pass1_mnem != NULL)
 	goto match_error;
+      if (i.error != no_error)
+	{
+	  gas_assert (current_templates != NULL);
+	  if (current_templates->start->opcode_modifier.pass2 && !i.suffix)
+	    goto no_match;
+	  /* No point in trying a 2nd pass - it'll only find the same suffix
+	     again.  */
+	  goto match_error;
+	}
       return;
     }
   if (current_templates->start->opcode_modifier.pass2)
@@ -4947,12 +4958,21 @@ md_assemble (char *line)
 	{
 	  line = copy;
 	  copy = NULL;
+  no_match:
 	  pass1_err = i.error;
 	  pass1_mnem = current_templates->start->name;
 	  goto retry;
 	}
-      free (copy);
+
+      /* If a non-/only-64bit template (group) was found in pass 1, and if
+	 _some_ template (group) was found in pass 2, squash pass 1's
+	 error.  */
+      if (pass1_err == unsupported_64bit)
+	pass1_mnem = NULL;
+
   match_error:
+      free (copy);
+
       switch (pass1_mnem ? pass1_err : i.error)
 	{
 	default:
@@ -4984,6 +5004,17 @@ md_assemble (char *line)
 	case unsupported:
 	  as_bad (_("unsupported instruction `%s'"),
 		  pass1_mnem ? pass1_mnem : current_templates->start->name);
+	  return;
+	case unsupported_on_arch:
+	  as_bad (_("`%s' is not supported on `%s%s'"),
+		  pass1_mnem ? pass1_mnem : current_templates->start->name,
+		  cpu_arch_name ? cpu_arch_name : default_arch,
+		  cpu_sub_arch_name ? cpu_sub_arch_name : "");
+	  return;
+	case unsupported_64bit:
+	  as_bad (_("`%s' is %s supported in 64-bit mode"),
+		  pass1_mnem ? pass1_mnem : current_templates->start->name,
+		  flag_code == CODE_64BIT ? _("not") : _("only"));
 	  return;
 	case invalid_sib_address:
 	  err_msg = _("invalid SIB address");
@@ -5625,16 +5656,13 @@ parse_insn (const char *line, char *mnemonic)
 	return l;
     }
 
-  if (!(supported & CPU_FLAGS_64BIT_MATCH))
-    as_bad (flag_code == CODE_64BIT
-	    ? _("`%s' is not supported in 64-bit mode")
-	    : _("`%s' is only supported in 64-bit mode"),
-	    current_templates->start->name);
-  else
-    as_bad (_("`%s' is not supported on `%s%s'"),
-	    current_templates->start->name,
-	    cpu_arch_name ? cpu_arch_name : default_arch,
-	    cpu_sub_arch_name ? cpu_sub_arch_name : "");
+  if (pass1)
+    {
+      if (supported & CPU_FLAGS_64BIT_MATCH)
+        i.error = unsupported_on_arch;
+      else
+        i.error = unsupported_64bit;
+    }
 
   return NULL;
 }
