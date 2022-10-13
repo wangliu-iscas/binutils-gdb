@@ -164,9 +164,7 @@ movbe, 0x0f38f0, None, CpuMovbe, D|Modrm|No_bSuf|No_sSuf|No_ldSuf, { Word|Dword|
 // Move with sign extend.
 movsb, 0xfbe, None, Cpu386, Modrm|No_bSuf|No_sSuf|No_ldSuf|Pass2, { Reg8|Unspecified|BaseIndex, Reg16|Reg32|Reg64 }
 movsw, 0xfbf, None, Cpu386, Modrm|No_bSuf|No_wSuf|No_sSuf|No_ldSuf|Pass2, { Reg16|Unspecified|BaseIndex, Reg32|Reg64 }
-// "movslq" must not be converted into "movsl" to avoid conflict with the
-// "movsl" string move instruction.
-movslq, 0x63, None, Cpu64, Modrm|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf|Size64, { Reg32|Dword|Unspecified|BaseIndex, Reg64 }
+movsl, 0x63, None, Cpu64, Modrm|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_ldSuf|Pass2, { Reg32|Unspecified|BaseIndex, Reg64 }
 movsx, 0xfbe, None, Cpu386, W|Modrm|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg8|Reg16|Unspecified|BaseIndex, Reg16|Reg32|Reg64 }
 movsx, 0x63, None, Cpu64, Modrm|No_bSuf|No_wSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Unspecified|BaseIndex, Reg32|Reg64 }
 movsxd, 0x63, None, Cpu64, Modrm|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Unspecified|BaseIndex, Reg32|Reg64 }
