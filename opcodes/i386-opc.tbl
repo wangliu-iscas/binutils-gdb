@@ -3339,3 +3339,9 @@ rdmsrlist, 0xf20f01c6, None, CpuMSRLIST|Cpu64, No_bSuf|No_wSuf|No_lSuf|No_sSuf|N
 wrmsrlist, 0xf30f01c6, None, CpuMSRLIST|Cpu64, No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {}
 
 // MSRLIST instructions end.
+
+// AMX-FP16 instructions.
+
+tdpfp16ps, 0xf25c, None, CpuAMX_FP16|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|VexW0|SwapSources|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegTMM, RegTMM, RegTMM }
+
+// AMX-FP16 instructions end.

@@ -259,6 +259,8 @@ static initializer cpu_flag_init[] =
     "CpuWRMSRNS" },
   { "CPU_MSRLIST_FLAGS",
     "CpuMSRLIST" },
+  { "CPU_AMX_FP16_FLAGS",
+    "CpuAMX_FP16" },
   { "CPU_IAMCU_FLAGS",
     "Cpu186|Cpu286|Cpu386|Cpu486|Cpu586|CpuIAMCU" },
   { "CPU_ADX_FLAGS",
@@ -426,7 +428,7 @@ static initializer cpu_flag_init[] =
   { "CPU_ANY_AMX_BF16_FLAGS",
     "CpuAMX_BF16" },
   { "CPU_ANY_AMX_TILE_FLAGS",
-    "CpuAMX_TILE|CpuAMX_INT8|CpuAMX_BF16" },
+    "CpuAMX_TILE|CpuAMX_INT8|CpuAMX_BF16|CpuAMX_FP16" },
   { "CPU_ANY_AVX_VNNI_FLAGS",
     "CpuAVX_VNNI" },
   { "CPU_ANY_MOVDIRI_FLAGS",
@@ -467,6 +469,8 @@ static initializer cpu_flag_init[] =
     "CpuWRMSRNS" },
   { "CPU_ANY_MSRLIST_FLAGS",
     "CpuMSRLIST" },
+  { "CPU_ANY_AMX_FP16_FLAGS",
+    "CpuAMX_FP16" },
 };
 
 static initializer operand_type_init[] =
@@ -675,6 +679,7 @@ static bitfield cpu_flags[] =
   BITFIELD (CpuRAOINT),
   BITFIELD (CpuWRMSRNS),
   BITFIELD (CpuMSRLIST),
+  BITFIELD (CpuAMX_FP16),
   BITFIELD (CpuMWAITX),
   BITFIELD (CpuCLZERO),
   BITFIELD (CpuOSPKE),
