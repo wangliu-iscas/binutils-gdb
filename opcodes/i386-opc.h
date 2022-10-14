@@ -211,6 +211,8 @@ enum
   CpuAVX512_FP16,
   /* Intel AVX IFMA Instructions support required.  */
   CpuAVX_IFMA,
+  /* Intel AVX VNNI-INT8 Instructions support required.  */
+  CpuAVX_VNNI_INT8,
   /* mwaitx instruction required */
   CpuMWAITX,
   /* Clzero instruction required */
@@ -391,6 +393,7 @@ typedef union i386_cpu_flags
       unsigned int cpuavx_vnni:1;
       unsigned int cpuavx512_fp16:1;
       unsigned int cpuavx_ifma:1;
+      unsigned int cpuavx_vnni_int8:1;
       unsigned int cpumwaitx:1;
       unsigned int cpuclzero:1;
       unsigned int cpuospke:1;
