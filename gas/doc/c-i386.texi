@@ -221,6 +221,7 @@ accept various extension mnemonics.  For example,
 @code{wrmsrns},
 @code{msrlist},
 @code{amx_fp16},
+@code{prefetchi},
 @code{noavx512f},
 @code{noavx512cd},
 @code{noavx512er},
@@ -249,6 +250,7 @@ accept various extension mnemonics.  For example,
 @code{nowrmsrns},
 @code{nomsrlist},
 @code{noamx_fp16},
+@code{noprefetchi},
 @code{noenqcmd},
 @code{noserialize},
 @code{notsxldtrk},
@@ -1551,7 +1553,7 @@ supported on the CPU specified.  The choices for @var{cpu_type} are:
 @item @samp{.clwb} @tab @samp{.rdpid} @tab @samp{.ptwrite} @tab @samp{.ibt}
 @item @samp{.avx_ifma} @tab @samp{.avx_vnni_int8} @tab @samp{.avx_ne_convert}
 @item @samp{.cmpccxadd} @tab @samp{.raoint} @tab @samp{.wrmsrns}
-@item @samp{.msrlist} @tab @samp{.amx_fp16}
+@item @samp{.msrlist} @tab @samp{.amx_fp16} @tab @samp{.prefetchi}
 @item @samp{.wbnoinvd} @tab @samp{.pconfig} @tab @samp{.waitpkg} @tab @samp{.cldemote}
 @item @samp{.shstk} @tab @samp{.gfni} @tab @samp{.vaes} @tab @samp{.vpclmulqdq}
 @item @samp{.movdiri} @tab @samp{.movdir64b} @tab @samp{.enqcmd} @tab @samp{.tsxldtrk}

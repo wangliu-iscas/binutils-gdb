@@ -44,6 +44,8 @@ foo:
 	lock wrmsrns
 	lock rdmsrlist
 	lock wrmsrlist
+	lock prefetchit0 0x12345678(%rip)
+	lock prefetchit1 0x12345678(%rip)
 
 	.intel_syntax noprefix
 	lock mov eax,ebx
@@ -88,3 +90,5 @@ foo:
 	lock wrmsrns
 	lock rdmsrlist
 	lock wrmsrlist
+	lock prefetchit0 BYTE PTR [rip+0x12345678]
+	lock prefetchit1 BYTE PTR [rip+0x12345678]

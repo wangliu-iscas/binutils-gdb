@@ -225,6 +225,8 @@ enum
   CpuMSRLIST,
   /* AMX-FP16 instructions required */
   CpuAMX_FP16,
+  /* PREFETCHI instruction required */
+  CpuPREFETCHI,
   /* mwaitx instruction required */
   CpuMWAITX,
   /* Clzero instruction required */
@@ -412,6 +414,7 @@ typedef union i386_cpu_flags
       unsigned int cpuwrmsrns:1;
       unsigned int cpumsrlist:1;
       unsigned int cpuamx_fp16:1;
+      unsigned int cpuprefetchi:1;
       unsigned int cpumwaitx:1;
       unsigned int cpuclzero:1;
       unsigned int cpuospke:1;

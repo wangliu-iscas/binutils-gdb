@@ -39,10 +39,10 @@
 .*:44: Error: .*
 .*:45: Error: .*
 .*:46: Error: .*
-.*:49: Error: .*
-.*:50: Error: .*
+.*:47: Error: .*
+.*:48: Error: .*
+.*:51: Error: .*
 .*:52: Error: .*
-.*:53: Error: .*
 .*:54: Error: .*
 .*:55: Error: .*
 .*:56: Error: .*
@@ -69,8 +69,8 @@
 .*:77: Error: .*
 .*:78: Error: .*
 .*:79: Error: .*
+.*:80: Error: .*
 .*:81: Error: .*
-.*:82: Error: .*
 .*:83: Error: .*
 .*:84: Error: .*
 .*:85: Error: .*
@@ -79,6 +79,10 @@
 .*:88: Error: .*
 .*:89: Error: .*
 .*:90: Error: .*
+.*:91: Error: .*
+.*:92: Error: .*
+.*:93: Error: .*
+.*:94: Error: .*
 GAS LISTING .*
 
 
@@ -128,50 +132,54 @@ GAS LISTING .*
 [ 	]*44[ 	]+lock wrmsrns
 [ 	]*45[ 	]+lock rdmsrlist
 [ 	]*46[ 	]+lock wrmsrlist
-[ 	]*47[ 	]+
-[ 	]*48[ 	]+\.intel_syntax noprefix
-[ 	]*49[ 	]+lock mov eax,ebx
-[ 	]*50[ 	]+lock mov eax,DWORD PTR \[rbx\]
-[ 	]*51[ 	]+
-[ 	]*52[ 	]+lock add eax,ebx
-[ 	]*53[ 	]+lock add ebx,0x64
-[ 	]*54[ 	]+lock adc eax,ebx
-[ 	]*55[ 	]+lock adc ebx,0x64
-[ 	]*56[ 	]+lock and eax,ebx
-[ 	]*57[ 	]+lock and ebx,0x64
+[ 	]*47[ 	]+lock prefetchit0 0x12345678\(%rip\)
+[ 	]*48[ 	]+lock prefetchit1 0x12345678\(%rip\)
+[ 	]*49[ 	]+
+[ 	]*50[ 	]+\.intel_syntax noprefix
+[ 	]*51[ 	]+lock mov eax,ebx
+[ 	]*52[ 	]+lock mov eax,DWORD PTR \[rbx\]
+[ 	]*53[ 	]+
+[ 	]*54[ 	]+lock add eax,ebx
+[ 	]*55[ 	]+lock add ebx,0x64
+[ 	]*56[ 	]+lock adc eax,ebx
+[ 	]*57[ 	]+lock adc ebx,0x64
 GAS LISTING .*
 
 
-[ 	]*58[ 	]+lock btc ebx,eax
-[ 	]*59[ 	]+lock btc ebx,0x64
-[ 	]*60[ 	]+lock btr ebx,eax
-[ 	]*61[ 	]+lock btr ebx,0x64
-[ 	]*62[ 	]+lock bts ebx,eax
-[ 	]*63[ 	]+lock bts ebx,0x64
-[ 	]*64[ 	]+lock cmpxchg ebx,eax
-[ 	]*65[ 	]+lock dec ebx
-[ 	]*66[ 	]+lock inc ebx
-[ 	]*67[ 	]+lock neg ebx
-[ 	]*68[ 	]+lock not ebx
-[ 	]*69[ 	]+lock or eax,ebx
-[ 	]*70[ 	]+lock or ebx,0x64
-[ 	]*71[ 	]+lock sbb eax,ebx
-[ 	]*72[ 	]+lock sbb ebx,0x64
-[ 	]*73[ 	]+lock sub eax,ebx
-[ 	]*74[ 	]+lock sub ebx,0x64
-[ 	]*75[ 	]+lock xadd ebx,eax
-[ 	]*76[ 	]+lock xchg ebx,eax
-[ 	]*77[ 	]+lock xchg ebx,eax
-[ 	]*78[ 	]+lock xor eax,ebx
-[ 	]*79[ 	]+lock xor ebx,0x64
-[ 	]*80[ 	]+
-[ 	]*81[ 	]+lock add eax,DWORD PTR \[rbx\]
-[ 	]*82[ 	]+lock adc eax,DWORD PTR \[rbx\]
-[ 	]*83[ 	]+lock and eax,DWORD PTR \[rbx\]
-[ 	]*84[ 	]+lock or eax,DWORD PTR \[rbx\]
-[ 	]*85[ 	]+lock sbb eax,DWORD PTR \[rbx\]
-[ 	]*86[ 	]+lock sub eax,DWORD PTR \[rbx\]
-[ 	]*87[ 	]+lock xor eax,DWORD PTR \[rbx\]
-[ 	]*88[ 	]+lock wrmsrns
-[ 	]*89[ 	]+lock rdmsrlist
-[ 	]*90[ 	]+lock wrmsrlist
+[ 	]*58[ 	]+lock and eax,ebx
+[ 	]*59[ 	]+lock and ebx,0x64
+[ 	]*60[ 	]+lock btc ebx,eax
+[ 	]*61[ 	]+lock btc ebx,0x64
+[ 	]*62[ 	]+lock btr ebx,eax
+[ 	]*63[ 	]+lock btr ebx,0x64
+[ 	]*64[ 	]+lock bts ebx,eax
+[ 	]*65[ 	]+lock bts ebx,0x64
+[ 	]*66[ 	]+lock cmpxchg ebx,eax
+[ 	]*67[ 	]+lock dec ebx
+[ 	]*68[ 	]+lock inc ebx
+[ 	]*69[ 	]+lock neg ebx
+[ 	]*70[ 	]+lock not ebx
+[ 	]*71[ 	]+lock or eax,ebx
+[ 	]*72[ 	]+lock or ebx,0x64
+[ 	]*73[ 	]+lock sbb eax,ebx
+[ 	]*74[ 	]+lock sbb ebx,0x64
+[ 	]*75[ 	]+lock sub eax,ebx
+[ 	]*76[ 	]+lock sub ebx,0x64
+[ 	]*77[ 	]+lock xadd ebx,eax
+[ 	]*78[ 	]+lock xchg ebx,eax
+[ 	]*79[ 	]+lock xchg ebx,eax
+[ 	]*80[ 	]+lock xor eax,ebx
+[ 	]*81[ 	]+lock xor ebx,0x64
+[ 	]*82[ 	]+
+[ 	]*83[ 	]+lock add eax,DWORD PTR \[rbx\]
+[ 	]*84[ 	]+lock adc eax,DWORD PTR \[rbx\]
+[ 	]*85[ 	]+lock and eax,DWORD PTR \[rbx\]
+[ 	]*86[ 	]+lock or eax,DWORD PTR \[rbx\]
+[ 	]*87[ 	]+lock sbb eax,DWORD PTR \[rbx\]
+[ 	]*88[ 	]+lock sub eax,DWORD PTR \[rbx\]
+[ 	]*89[ 	]+lock xor eax,DWORD PTR \[rbx\]
+[ 	]*90[ 	]+lock wrmsrns
+[ 	]*91[ 	]+lock rdmsrlist
+[ 	]*92[ 	]+lock wrmsrlist
+[ 	]*93[ 	]+lock prefetchit0 BYTE PTR \[rip\+0x12345678\]
+[ 	]*94[ 	]+lock prefetchit1 BYTE PTR \[rip\+0x12345678\]

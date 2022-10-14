@@ -3345,3 +3345,10 @@ wrmsrlist, 0xf30f01c6, None, CpuMSRLIST|Cpu64, No_bSuf|No_wSuf|No_lSuf|No_sSuf|N
 tdpfp16ps, 0xf25c, None, CpuAMX_FP16|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|VexW0|SwapSources|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegTMM, RegTMM, RegTMM }
 
 // AMX-FP16 instructions end.
+
+// PREFETCHI instructions.
+
+prefetchit0, 0xf18, 0x7, CpuPREFETCHI|Cpu64, Modrm|Anysize|IgnoreSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { BaseIndex }
+prefetchit1, 0xf18, 0x6, CpuPREFETCHI|Cpu64, Modrm|Anysize|IgnoreSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { BaseIndex }
+
+// PREFETCHI instructions end.
