@@ -3317,3 +3317,12 @@ cmpsxadd, 0x66e8, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|Swa
 cmpzxadd, 0x66e4, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
 
 // CMPCCXADD instructions end.
+
+// RAOINT instructions.
+
+aadd, 0xf38fc, None, CpuRAOINT, Modrm|IgnoreSize|No_bSuf|No_wSuf|No_sSuf|No_ldSuf,{ Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex}
+aand, 0x660f38fc, None, CpuRAOINT, Modrm|IgnoreSize|No_bSuf|No_wSuf|No_sSuf|No_ldSuf,{ Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex}
+aor, 0xf20f38fc, None, CpuRAOINT, Modrm|IgnoreSize|No_bSuf|No_wSuf|No_sSuf|No_ldSuf,{ Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex}
+axor, 0xf30f38fc, None, CpuRAOINT, Modrm|IgnoreSize|No_bSuf|No_wSuf|No_sSuf|No_ldSuf,{ Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex}
+
+// RAOINT instructions end.
