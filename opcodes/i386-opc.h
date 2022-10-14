@@ -219,6 +219,8 @@ enum
   CpuCMPCCXADD,
   /* Intel RAO INT Instructions support required.  */
   CpuRAOINT,
+  /* Intel WRMSRNS Instructions support required */
+  CpuWRMSRNS,
   /* mwaitx instruction required */
   CpuMWAITX,
   /* Clzero instruction required */
@@ -403,6 +405,7 @@ typedef union i386_cpu_flags
       unsigned int cpuavx_ne_convert:1;
       unsigned int cpucmpccxadd:1;
       unsigned int cpuraoint:1;
+      unsigned int cpuwrmsrns:1;
       unsigned int cpumwaitx:1;
       unsigned int cpuclzero:1;
       unsigned int cpuospke:1;
