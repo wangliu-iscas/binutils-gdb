@@ -3296,3 +3296,24 @@ vpdpbsud, 0xf350, None, CpuAVX_VNNI_INT8, Modrm|Vex|Space0F38|VexVVVV|VexW0|Chec
 vpdpbsuds, 0xf351, None, CpuAVX_VNNI_INT8, Modrm|Vex|Space0F38|VexVVVV|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegXMM|RegYMM|Unspecified|BaseIndex, RegXMM|RegYMM, RegXMM|RegYMM }
 
 // AVX_VNNI_INT8 instructions end.
+
+// CMPCCXADD instructions.
+
+cmpbexadd, 0x66e6, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpbxadd, 0x66e2, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmplexadd, 0x66ee, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmplxadd, 0x66ec, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnbexadd, 0x66e7, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnbxadd, 0x66e3, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnlexadd, 0x66ef, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnlxadd, 0x66ed, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnoxadd, 0x66e1, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnpxadd, 0x66eb, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnsxadd, 0x66e9, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpnzxadd, 0x66e5, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpoxadd, 0x66e0, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmppxadd, 0x66ea, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpsxadd, 0x66e8, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+cmpzxadd, 0x66e4, None, CpuCMPCCXADD|Cpu64, Modrm|Vex128|Space0F38|VexVVVV=1|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+
+// CMPCCXADD instructions end.
