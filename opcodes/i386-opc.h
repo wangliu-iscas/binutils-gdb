@@ -215,6 +215,8 @@ enum
   CpuAVX_VNNI_INT8,
   /* Intel AVX NE CONVERT Instructions support required.  */
   CpuAVX_NE_CONVERT,
+  /* Intel CMPccXADD instructions support required.  */
+  CpuCMPCCXADD,
   /* mwaitx instruction required */
   CpuMWAITX,
   /* Clzero instruction required */
@@ -397,6 +399,7 @@ typedef union i386_cpu_flags
       unsigned int cpuavx_ifma:1;
       unsigned int cpuavx_vnni_int8:1;
       unsigned int cpuavx_ne_convert:1;
+      unsigned int cpucmpccxadd:1;
       unsigned int cpumwaitx:1;
       unsigned int cpuclzero:1;
       unsigned int cpuospke:1;
@@ -433,7 +436,7 @@ typedef union i386_cpu_flags
       unsigned int cpu64:1;
       unsigned int cpuno64:1;
 #ifdef CpuUnused
-      unsigned int unused:(CpuNumOfBits - CpuUnused);
+      // unsigned int unused:(CpuNumOfBits - CpuUnused);
 #endif
     } bitfield;
   unsigned int array[CpuNumOfUints];

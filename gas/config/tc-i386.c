@@ -1097,6 +1097,7 @@ static const arch_entry cpu_arch[] =
   SUBARCH (avx_ifma, AVX_IFMA, ANY_AVX_IFMA, false),
   SUBARCH (avx_vnni_int8, AVX_VNNI_INT8, ANY_AVX_VNNI_INT8, false),
   SUBARCH (avx_ne_convert, AVX_NE_CONVERT, ANY_AVX_NE_CONVERT, false),
+  SUBARCH (cmpccxadd, CMPCCXADD, ANY_CMPCCXADD, false)
 };
 
 #undef SUBARCH
@@ -8567,6 +8568,12 @@ build_modrm_byte (void)
 		      op += 2;
 		      gas_assert (mem == (vex_reg + 1)
 				  && op < i.operands);
+		    }
+		  else if (i.tm.opcode_modifier.swapsources)
+		    {
+		      /* Set Vex_reg as operand 0.  */
+		      vex_reg = op++;
+		      gas_assert(vex_reg < i.operands);
 		    }
 		  else
 		    {
