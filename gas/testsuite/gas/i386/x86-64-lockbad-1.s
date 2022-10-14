@@ -41,6 +41,7 @@ foo:
 	lock sbb (%rbx), %eax
 	lock sub (%rbx), %eax
 	lock xor (%rbx), %eax
+	lock wrmsrns
 
 	.intel_syntax noprefix
 	lock mov eax,ebx
@@ -82,3 +83,4 @@ foo:
 	lock sbb eax,DWORD PTR [rbx]
 	lock sub eax,DWORD PTR [rbx]
 	lock xor eax,DWORD PTR [rbx]
+	lock wrmsrns
