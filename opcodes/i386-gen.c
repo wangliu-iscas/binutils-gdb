@@ -257,6 +257,8 @@ static initializer cpu_flag_init[] =
     "CpuRAOINT" },
   { "CPU_WRMSRNS_FLAGS",
     "CpuWRMSRNS" },
+  { "CPU_MSRLIST_FLAGS",
+    "CpuMSRLIST" },
   { "CPU_IAMCU_FLAGS",
     "Cpu186|Cpu286|Cpu386|Cpu486|Cpu586|CpuIAMCU" },
   { "CPU_ADX_FLAGS",
@@ -463,6 +465,8 @@ static initializer cpu_flag_init[] =
     "CpuRAOINT" },
   { "CPU_ANY_WRMSRNS_FLAGS",
     "CpuWRMSRNS" },
+  { "CPU_ANY_MSRLIST_FLAGS",
+    "CpuMSRLIST" },
 };
 
 static initializer operand_type_init[] =
@@ -670,6 +674,7 @@ static bitfield cpu_flags[] =
   BITFIELD (CpuCMPCCXADD),
   BITFIELD (CpuRAOINT),
   BITFIELD (CpuWRMSRNS),
+  BITFIELD (CpuMSRLIST),
   BITFIELD (CpuMWAITX),
   BITFIELD (CpuCLZERO),
   BITFIELD (CpuOSPKE),

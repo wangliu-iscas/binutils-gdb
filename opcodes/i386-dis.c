@@ -1281,6 +1281,8 @@ enum
   X86_64_E9,
   X86_64_EA,
   X86_64_0F01_REG_0,
+  X86_64_0F01_REG_0_MOD_3_RM_6_P_1,
+  X86_64_0F01_REG_0_MOD_3_RM_6_P_3,
   X86_64_0F01_REG_1,
   X86_64_0F01_REG_1_RM_5_PREFIX_2,
   X86_64_0F01_REG_1_RM_6_PREFIX_2,
@@ -2974,6 +2976,9 @@ static const struct dis386 prefix_table[][4] = {
   /* PREFIX_0F01_REG_0_MOD_3_RM_6 */
   {
     { "wrmsrns",        { Skip_MODRM }, 0 },
+    { X86_64_TABLE (X86_64_0F01_REG_0_MOD_3_RM_6_P_1) },
+    { Bad_Opcode },
+    { X86_64_TABLE (X86_64_0F01_REG_0_MOD_3_RM_6_P_3) },
   },
 
   /* PREFIX_0F01_REG_1_RM_4 */
@@ -4313,6 +4318,18 @@ static const struct dis386 x86_64_table[][2] = {
   {
     { "sgdt{Q|Q}", { M }, 0 },
     { "sgdt", { M }, 0 },
+  },
+
+  /* X86_64_0F01_REG_0_MOD_3_RM_6_P_1 */
+  {
+    { Bad_Opcode },
+    { "wrmsrlist",	{ Skip_MODRM }, 0 },
+  },
+
+  /* X86_64_0F01_REG_0_MOD_3_RM_6_P_3 */
+  {
+    { Bad_Opcode },
+    { "rdmsrlist",	{ Skip_MODRM }, 0 },
   },
 
   /* X86_64_0F01_REG_1 */
