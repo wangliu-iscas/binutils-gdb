@@ -3027,6 +3027,21 @@ movdir64b, 0x660f38f8, None, CpuMOVDIR64B, Modrm|AddrPrefixOpReg, { Unspecified|
 
 // MOVEDIR instructions end.
 
+// AVX_NE_CONVERT instructions.
+
+vbcstnebf162ps, 0xf3b1, None, CpuAVX_NE_CONVERT, Modrm|Vex|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Word|Unspecified|BaseIndex, RegXMM|RegYMM}
+vbcstnesh2ps,   0x66b1, None, CpuAVX_NE_CONVERT, Modrm|Vex|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Word|Unspecified|BaseIndex, RegXMM|RegYMM}
+vcvtneoph2ps,   0xb0,   None,   CpuAVX_NE_CONVERT, Modrm|Vex|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Xmmword|Ymmword|Unspecified|BaseIndex, RegXMM|RegYMM}
+vcvtneebf162ps, 0xf3b0, None,   CpuAVX_NE_CONVERT, Modrm|Vex|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Xmmword|Ymmword|Unspecified|BaseIndex, RegXMM|RegYMM}
+vcvtneeph2ps,   0x66b0, None,   CpuAVX_NE_CONVERT, Modrm|Vex|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Xmmword|Ymmword|Unspecified|BaseIndex, RegXMM|RegYMM}
+vcvtneobf162ps, 0xf2b0, None,   CpuAVX_NE_CONVERT, Modrm|Vex|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Xmmword|Ymmword|Unspecified|BaseIndex, RegXMM|RegYMM}
+vcvtneps2bf16,  0xf372, None,   CpuAVX_NE_CONVERT, Modrm|PseudoVexPrefix|Vex128|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Xmmword|RegXMM|Unspecified|BaseIndex, RegXMM}
+vcvtneps2bf16,  0xf372, None,   CpuAVX_NE_CONVERT, Modrm|PseudoVexPrefix|Vex256|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {Ymmword|RegYMM|Unspecified|BaseIndex, RegXMM}
+vcvtneps2bf16x, 0xf372, None,   CpuAVX_NE_CONVERT, Modrm|PseudoVexPrefix|Vex128|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf|ATTSyntax, {Xmmword|RegXMM|Unspecified|BaseIndex, RegXMM}
+vcvtneps2bf16y,  0xf372, None,   CpuAVX_NE_CONVERT, Modrm|PseudoVexPrefix|Vex256|Space0F38|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf|ATTSyntax, {Ymmword|RegYMM|Unspecified|BaseIndex, RegXMM}
+
+// AVX_NE_CONVERT instructions end.
+
 // AVX512_BF16 instructions.
 
 vcvtne2ps2bf16, 0xf272, None, CpuAVX512_BF16, Modrm|Space0F38|VexVVVV|Masking=3|VexW0|Broadcast|Disp8ShiftVL|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegXMM|RegYMM|RegZMM|Dword|Unspecified|BaseIndex, RegXMM|RegYMM|RegZMM, RegXMM|RegYMM|RegZMM }
