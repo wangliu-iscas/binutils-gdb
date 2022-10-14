@@ -1101,6 +1101,7 @@ static const arch_entry cpu_arch[] =
   SUBARCH (raoint, RAOINT, ANY_RAOINT, false),
   SUBARCH (wrmsrns, WRMSRNS, ANY_WRMSRNS, false),
   SUBARCH (msrlist, MSRLIST, ANY_MSRLIST, false),
+  SUBARCH (amx_fp16, AMX_FP16, ANY_AMX_FP16, false),
 };
 
 #undef SUBARCH
