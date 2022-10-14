@@ -245,6 +245,8 @@ static initializer cpu_flag_init[] =
     "CPU_AVX512F_FLAGS|CpuAVX512_BF16" },
   { "CPU_AVX512_FP16_FLAGS",
     "CPU_AVX512BW_FLAGS|CpuAVX512_FP16" },
+  { "CPU_AVX_IFMA_FLAGS",
+    "CPU_AVX2_FLAGS|CpuAVX_IFMA" },
   { "CPU_IAMCU_FLAGS",
     "Cpu186|Cpu286|Cpu386|Cpu486|Cpu586|CpuIAMCU" },
   { "CPU_ADX_FLAGS",
@@ -439,6 +441,8 @@ static initializer cpu_flag_init[] =
     "CpuHRESET" },
   { "CPU_ANY_AVX512_FP16_FLAGS",
     "CpuAVX512_FP16" },
+  { "CPU_ANY_AVX_IFMA_FLAGS",
+    "CpuAVX_IFMA" },
 };
 
 static initializer operand_type_init[] =
@@ -640,6 +644,7 @@ static bitfield cpu_flags[] =
   BITFIELD (CpuTDX),
   BITFIELD (CpuAVX_VNNI),
   BITFIELD (CpuAVX512_FP16),
+  BITFIELD (CpuAVX_IFMA),
   BITFIELD (CpuMWAITX),
   BITFIELD (CpuCLZERO),
   BITFIELD (CpuOSPKE),
