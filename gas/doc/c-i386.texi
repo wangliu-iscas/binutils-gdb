@@ -215,6 +215,7 @@ accept various extension mnemonics.  For example,
 @code{avx512_fp16},
 @code{avx_ifma},
 @code{avx_vnni_int8},
+@code{avx_ne_convert},
 @code{noavx512f},
 @code{noavx512cd},
 @code{noavx512er},
@@ -237,6 +238,7 @@ accept various extension mnemonics.  For example,
 @code{noavx512_fp16},
 @code{noavx_ifma},
 @code{noavx_vnni_int8},
+@code{noavx_ne_convert},
 @code{noenqcmd},
 @code{noserialize},
 @code{notsxldtrk},
@@ -1537,7 +1539,7 @@ supported on the CPU specified.  The choices for @var{cpu_type} are:
 @item @samp{.avx512_bitalg} @tab @samp{.avx512_bf16} @tab @samp{.avx512_vp2intersect}
 @item @samp{.tdx} @tab @samp{.avx_vnni}  @tab @samp{.avx512_fp16}
 @item @samp{.clwb} @tab @samp{.rdpid} @tab @samp{.ptwrite} @tab @samp{.ibt}
-@item @samp{.avx_ifma} @tab @samp{.avx_vnni_int8}
+@item @samp{.avx_ifma} @tab @samp{.avx_vnni_int8} @tab @samp{.avx_ne_convert}
 @item @samp{.wbnoinvd} @tab @samp{.pconfig} @tab @samp{.waitpkg} @tab @samp{.cldemote}
 @item @samp{.shstk} @tab @samp{.gfni} @tab @samp{.vaes} @tab @samp{.vpclmulqdq}
 @item @samp{.movdiri} @tab @samp{.movdir64b} @tab @samp{.enqcmd} @tab @samp{.tsxldtrk}
