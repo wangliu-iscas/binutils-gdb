@@ -1094,6 +1094,7 @@ static const arch_entry cpu_arch[] =
   SUBARCH (uintr, UINTR, ANY_UINTR, false),
   SUBARCH (hreset, HRESET, ANY_HRESET, false),
   SUBARCH (avx512_fp16, AVX512_FP16, ANY_AVX512_FP16, false),
+  SUBARCH (avx_ifma, AVX_IFMA, ANY_AVX_IFMA, false),
 };
 
 #undef SUBARCH
