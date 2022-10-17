@@ -31,6 +31,7 @@
 #ifdef OBJ_ELF
 #include "elf/aarch64.h"
 #include "dw2gencfi.h"
+#include "gen-sframe.h"
 #endif
 
 #include "dwarf2dbg.h"
@@ -69,6 +70,11 @@ enum aarch64_abi_type
   AARCH64_ABI_LP64 = 1,
   AARCH64_ABI_ILP32 = 2
 };
+
+unsigned int aarch64_sframe_cfa_sp_reg;
+/* The other CFA base register for SFrame unwind info.  */
+unsigned int aarch64_sframe_cfa_fp_reg;
+unsigned int aarch64_sframe_cfa_ra_reg;
 
 #ifndef DEFAULT_ARCH
 #define DEFAULT_ARCH "aarch64"
@@ -8402,6 +8408,35 @@ tc_aarch64_frame_initial_instructions (void)
 {
   cfi_add_CFA_def_cfa (REG_SP, 0);
 }
+
+bool
+aarch64_support_sframe_p (void)
+{
+  /* At this time, SFrame is supported for aarch64 only.  */
+  return (aarch64_abi == AARCH64_ABI_LP64);
+}
+
+bool
+aarch64_sframe_ra_tracking_p (void)
+{
+  return true;
+}
+
+offsetT
+aarch64_sframe_cfa_ra_offset (void)
+{
+  return (offsetT)0;
+}
+
+unsigned char
+aarch64_sframe_get_abi_arch (void)
+{
+  if (aarch64_support_sframe_p ())
+    return sframe_get_abi_arch_callback ("aarch64", target_big_endian);
+  else
+    return 0;
+}
+
 #endif /* OBJ_ELF */
 
 /* Convert REGNAME to a DWARF-2 register number.  */
@@ -9665,6 +9700,12 @@ md_begin (void)
   mach = ilp32_p ? bfd_mach_aarch64_ilp32 : bfd_mach_aarch64;
 
   bfd_set_arch_mach (stdoutput, TARGET_ARCH, mach);
+#ifdef OBJ_ELF
+  /* FIXME - is there a better way to do it ?  */
+  aarch64_sframe_cfa_sp_reg = 31;
+  aarch64_sframe_cfa_fp_reg = 29; /* x29.  */
+  aarch64_sframe_cfa_ra_reg = 30;
+#endif
 }
 
 /* Command line processing.  */

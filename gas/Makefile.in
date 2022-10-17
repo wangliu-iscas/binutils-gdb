@@ -162,14 +162,15 @@ CONFIG_CLEAN_FILES = gdb.ini .gdbinit po/Makefile.in
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am__objects_1 = app.$(OBJEXT) as.$(OBJEXT) atof-generic.$(OBJEXT) \
-	compress-debug.$(OBJEXT) cond.$(OBJEXT) depend.$(OBJEXT) \
-	dwarf2dbg.$(OBJEXT) dw2gencfi.$(OBJEXT) ecoff.$(OBJEXT) \
-	ehopt.$(OBJEXT) expr.$(OBJEXT) flonum-copy.$(OBJEXT) \
-	flonum-konst.$(OBJEXT) flonum-mult.$(OBJEXT) frags.$(OBJEXT) \
-	hash.$(OBJEXT) input-file.$(OBJEXT) input-scrub.$(OBJEXT) \
-	listing.$(OBJEXT) literal.$(OBJEXT) macro.$(OBJEXT) \
-	messages.$(OBJEXT) output-file.$(OBJEXT) read.$(OBJEXT) \
-	remap.$(OBJEXT) sb.$(OBJEXT) stabs.$(OBJEXT) subsegs.$(OBJEXT) \
+	compress-debug.$(OBJEXT) cond.$(OBJEXT) sframe-opt.$(OBJEXT) \
+	gen-sframe.$(OBJEXT) depend.$(OBJEXT) dwarf2dbg.$(OBJEXT) \
+	dw2gencfi.$(OBJEXT) ecoff.$(OBJEXT) ehopt.$(OBJEXT) \
+	expr.$(OBJEXT) flonum-copy.$(OBJEXT) flonum-konst.$(OBJEXT) \
+	flonum-mult.$(OBJEXT) frags.$(OBJEXT) hash.$(OBJEXT) \
+	input-file.$(OBJEXT) input-scrub.$(OBJEXT) listing.$(OBJEXT) \
+	literal.$(OBJEXT) macro.$(OBJEXT) messages.$(OBJEXT) \
+	output-file.$(OBJEXT) read.$(OBJEXT) remap.$(OBJEXT) \
+	sb.$(OBJEXT) stabs.$(OBJEXT) subsegs.$(OBJEXT) \
 	symbols.$(OBJEXT) write.$(OBJEXT)
 am_as_new_OBJECTS = $(am__objects_1)
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -556,6 +557,8 @@ GAS_CFILES = \
 	atof-generic.c \
 	compress-debug.c \
 	cond.c \
+	sframe-opt.c \
+	gen-sframe.c \
 	depend.c \
 	dwarf2dbg.c \
 	dw2gencfi.c \
@@ -590,6 +593,7 @@ HFILES = \
 	bit_fix.h \
 	cgen.h \
 	compress-debug.h \
+	gen-sframe.h \
 	dwarf2dbg.h \
 	dw2gencfi.h \
 	ecoff.h \
@@ -1302,6 +1306,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/flonum-konst.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/flonum-mult.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/frags.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gen-sframe.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hash.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/input-file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/input-scrub.Po@am__quote@
@@ -1316,6 +1321,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/read.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/remap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sb.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sframe-opt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stabs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/subsegs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/symbols.Po@am__quote@
