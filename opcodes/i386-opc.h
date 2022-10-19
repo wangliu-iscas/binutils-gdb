@@ -223,6 +223,8 @@ enum
   CpuWRMSRNS,
   /* Intel MSRLIST Instructions support required.  */
   CpuMSRLIST,
+  /* PREFETCHI instruction required */
+  CpuPREFETCHI,
   /* mwaitx instruction required */
   CpuMWAITX,
   /* Clzero instruction required */
@@ -411,6 +413,7 @@ typedef union i386_cpu_flags
       unsigned int cpuraoint:1;
       unsigned int cpuwrmsrns:1;
       unsigned int cpumsrlist:1;
+      unsigned int cpuprefetchi:1;
       unsigned int cpumwaitx:1;
       unsigned int cpuclzero:1;
       unsigned int cpuospke:1;

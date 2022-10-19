@@ -1102,6 +1102,7 @@ static const arch_entry cpu_arch[] =
   SUBARCH (raoint, RAOINT, ANY_RAOINT, false),
   SUBARCH (wrmsrns, WRMSRNS, WRMSRNS, false),
   SUBARCH (msrlist, MSRLIST, MSRLIST, false),
+  SUBARCH (prefetchi, PREFETCHI, ANY_PREFETCHI, false),
 };
 
 #undef SUBARCH
@@ -4522,7 +4523,8 @@ load_insn_p (void)
     {
       /* Anysize insns: lea, invlpg, clflush, prefetchnta, prefetcht0,
 	 prefetcht1, prefetcht2, prefetchtw, bndmk, bndcl, bndcu, bndcn,
-	 bndstx, bndldx, prefetchwt1, clflushopt, clwb, cldemote.  */
+	 bndstx, bndldx, prefetchwt1, clflushopt, clwb, cldemote, prefetchit0
+	 prefetchit1.  */
       if (i.tm.opcode_modifier.anysize)
 	return 0;
 

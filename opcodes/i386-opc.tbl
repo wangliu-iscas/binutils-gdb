@@ -3325,3 +3325,10 @@ rdmsrlist, 0xf20f01c6, None, CpuMSRLIST|Cpu64, No_bSuf|No_wSuf|No_lSuf|No_sSuf|N
 wrmsrlist, 0xf30f01c6, None, CpuMSRLIST|Cpu64, No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, {}
 
 // MSRLIST instructions end.
+
+// PREFETCHI instructions.
+
+prefetchit0, 0xf18, 0x7, CpuPREFETCHI|Cpu64, Modrm|Anysize|IgnoreSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { BaseIndex }
+prefetchit1, 0xf18, 0x6, CpuPREFETCHI|Cpu64, Modrm|Anysize|IgnoreSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { BaseIndex }
+
+// PREFETCHI instructions end.
