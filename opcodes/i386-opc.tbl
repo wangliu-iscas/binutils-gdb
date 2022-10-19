@@ -3296,3 +3296,9 @@ vpdpbsud, 0xf350, None, CpuAVX_VNNI_INT8, Modrm|Vex|Space0F38|VexVVVV|VexW0|Chec
 vpdpbsuds, 0xf351, None, CpuAVX_VNNI_INT8, Modrm|Vex|Space0F38|VexVVVV|VexW0|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegXMM|RegYMM|Unspecified|BaseIndex, RegXMM|RegYMM, RegXMM|RegYMM }
 
 // AVX_VNNI_INT8 instructions end.
+
+// CMPCCXADD instructions.
+
+cmp<cc>xadd, 0x66e<cc:opc>, None, CpuCMPCCXADD|Cpu64, Modrm|Vex|Space0F38|VexVVVV|SwapSources|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { Reg32|Reg64, Reg32|Reg64, Dword|Qword|Unspecified|BaseIndex }
+
+// CMPCCXADD instructions end.
