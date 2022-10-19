@@ -887,6 +887,7 @@ enum
   MOD_0F38F9,
   MOD_0F38FA_PREFIX_1,
   MOD_0F38FB_PREFIX_1,
+  MOD_0F38FC,
   MOD_0F3A0F_PREFIX_1,
 
   MOD_VEX_0F12_PREFIX_0,
@@ -1086,6 +1087,7 @@ enum
   PREFIX_0F38F8,
   PREFIX_0F38FA,
   PREFIX_0F38FB,
+  PREFIX_0F38FC,
   PREFIX_0F3A0F,
   PREFIX_VEX_0F10,
   PREFIX_VEX_0F11,
@@ -3598,6 +3600,14 @@ static const struct dis386 prefix_table[][4] = {
     { MOD_TABLE (MOD_0F38FB_PREFIX_1) },
   },
 
+  /* PREFIX_0F38FC */
+  {
+    { "aadd",	{ Edq, Gdq }, PREFIX_OPCODE },
+    { "axor",	{ Edq, Gdq }, PREFIX_OPCODE },
+    { "aand",	{ Edq, Gdq }, PREFIX_OPCODE },
+    { "aor",	{ Edq, Gdq }, PREFIX_OPCODE },
+  },
+
   /* PREFIX_0F3A0F */
   {
     { Bad_Opcode },
@@ -4802,7 +4812,7 @@ static const struct dis386 three_byte_table[][256] = {
     { MOD_TABLE (MOD_0F38F9) },
     { PREFIX_TABLE (PREFIX_0F38FA) },
     { PREFIX_TABLE (PREFIX_0F38FB) },
-    { Bad_Opcode },
+    { MOD_TABLE (MOD_0F38FC) },
     { Bad_Opcode },
     { Bad_Opcode },
     { Bad_Opcode },
@@ -8373,6 +8383,10 @@ static const struct dis386 mod_table[][2] = {
     /* MOD_0F38FB_PREFIX_1 */
     { Bad_Opcode },
     { "encodekey256", { Gd, Ed }, 0 },
+  },
+  {
+    /* MOD_0F38FC */
+    { PREFIX_TABLE (PREFIX_0F38FC) },
   },
   {
     /* MOD_0F3A0F_PREFIX_1 */
