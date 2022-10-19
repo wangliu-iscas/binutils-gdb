@@ -3263,3 +3263,10 @@ vrsqrtph, 0x664e, None, CpuAVX512_FP16, Modrm|Masking=3|EVexMap6|VexW0|Broadcast
 vrsqrtsh, 0x664f, None, CpuAVX512_FP16, Modrm|EVexLIG|Masking=3|EVexMap6|VexVVVV|VexW0|Disp8MemShift=1|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegXMM|Word|Unspecified|BaseIndex, RegXMM, RegXMM }
 
 // FP16 (HFNI) instructions end.
+
+// AVX_IFMA instructions.
+
+vpmadd52huq, 0x66B5, None, CpuAVX_IFMA, Modrm|Vex|PseudoVexPrefix|Space0F38|VexVVVV|VexW1|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegXMM|RegYMM|Unspecified|BaseIndex, RegXMM|RegYMM, RegXMM|RegYMM }
+vpmadd52luq, 0x66B4, None, CpuAVX_IFMA, Modrm|Vex|PseudoVexPrefix|Space0F38|VexVVVV|VexW1|CheckRegSize|No_bSuf|No_wSuf|No_lSuf|No_sSuf|No_qSuf|No_ldSuf, { RegXMM|RegYMM|Unspecified|BaseIndex, RegXMM|RegYMM, RegXMM|RegYMM }
+
+// AVX_IFMA instructions end.
