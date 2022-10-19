@@ -217,6 +217,8 @@ enum
   CpuAVX_NE_CONVERT,
   /* Intel CMPccXADD instructions support required.  */
   CpuCMPCCXADD,
+  /* Intel RAO INT Instructions support required.  */
+  CpuRAOINT,
   /* mwaitx instruction required */
   CpuMWAITX,
   /* Clzero instruction required */
@@ -298,7 +300,7 @@ enum
 
 /* If you get a compiler error for zero width of the unused field,
    comment it out.  */
-// #define CpuUnused	(CpuMax + 1)
+#define CpuUnused	(CpuMax + 1)
 
 /* We can check if an instruction is available with array instead
    of bitfield. */
@@ -400,6 +402,7 @@ typedef union i386_cpu_flags
       unsigned int cpuavx_vnni_int8:1;
       unsigned int cpuavx_ne_convert:1;
       unsigned int cpucmpccxadd:1;
+      unsigned int cpuraoint:1;
       unsigned int cpumwaitx:1;
       unsigned int cpuclzero:1;
       unsigned int cpuospke:1;
