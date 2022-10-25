@@ -507,6 +507,9 @@ enum
      Normally, it will be encoded in the reg field. We add a RegMem
      flag to indicate that it should be encoded in the regmem field.  */
   RegMem,
+  /* The (unsuffixed) mnemonic represents itself the suffixed form of another
+     mnemonic, potentially requiring a second parsing pass.  */
+  Pass2,
   /* quick test if branch instruction is MPX supported */
   BNDPrefixOk,
   /* fake an extra reg operand for clr, imul and special register
@@ -733,6 +736,7 @@ typedef struct i386_opcode_modifier
   unsigned int fwait:1;
   unsigned int isstring:2;
   unsigned int regmem:1;
+  unsigned int pass2:1;
   unsigned int bndprefixok:1;
   unsigned int regkludge:1;
   unsigned int implicit1stxmm0:1;
