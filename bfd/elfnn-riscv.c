@@ -4266,6 +4266,28 @@ typedef bool (*relax_func_t) (bfd *, asection *, asection *,
 			      riscv_pcgp_relocs *,
 			      bool undefined_weak);
 
+/* Traverse all output sections in jtype, and return the max alignment.  */
+
+static bfd_vma
+_bfd_riscv_get_max_alignment_in_jtype (asection *sec, bfd_vma base)
+{
+  unsigned int max_alignment_power = 0;
+  asection *o;
+
+  if (sec == NULL)
+    return 0;
+
+  for (o = sec->owner->sections; o != NULL; o = o->next)
+    {
+      if (VALID_JTYPE_IMM (sec_addr(o) - base)
+	  || VALID_ITYPE_IMM (sec_addr(o) + o->size - base))
+	if (o->alignment_power > max_alignment_power)
+	  max_alignment_power = o->alignment_power;
+    }
+
+  return (bfd_vma) 1 << max_alignment_power;
+}
+
 /* Relax AUIPC + JALR into JAL.  */
 
 static bool
@@ -4294,6 +4316,15 @@ _bfd_riscv_relax_call (bfd *abfd, asection *sec, asection *sym_sec,
       if (sym_sec->output_section == sec->output_section
 	  && sym_sec->output_section != bfd_abs_section_ptr)
 	max_alignment = (bfd_vma) 1 << sym_sec->output_section->alignment_power;
+      else
+	{
+	  bfd_vma new_max_alignment =
+	    _bfd_riscv_get_max_alignment_in_jtype (sec,
+						   (sec_addr (sec)
+						    + rel->r_offset));
+	  if (new_max_alignment)
+	    max_alignment = new_max_alignment;
+	}
       foff += ((bfd_signed_vma) foff < 0 ? -max_alignment : max_alignment);
     }
 
@@ -4360,6 +4391,28 @@ _bfd_riscv_get_max_alignment (asection *sec)
   return (bfd_vma) 1 << max_alignment_power;
 }
 
+/* Traverse all output sections in [gp-2K, gp+2K) and return the max alignment.  */
+
+static bfd_vma
+_bfd_riscv_get_max_alignment_in_itype (asection *sec, bfd_vma gp)
+{
+  unsigned int max_alignment_power = 0;
+  asection *o;
+
+  if (sec == NULL)
+    return 0;
+
+  for (o = sec->owner->sections; o != NULL; o = o->next)
+    {
+      if (VALID_ITYPE_IMM (sec_addr(o) - gp)
+	  || VALID_ITYPE_IMM (sec_addr(o) + o->size - gp))
+	if (o->alignment_power > max_alignment_power)
+	  max_alignment_power = o->alignment_power;
+    }
+
+  return (bfd_vma) 1 << max_alignment_power;
+}
+
 /* Relax non-PIC global variable references to GP-relative references.  */
 
 static bool
@@ -4391,6 +4444,13 @@ _bfd_riscv_relax_lui (bfd *abfd,
       if (h->u.def.section->output_section == sym_sec->output_section
 	  && sym_sec->output_section != bfd_abs_section_ptr)
 	max_alignment = (bfd_vma) 1 << sym_sec->output_section->alignment_power;
+      else
+	{
+	  /* Otherwise, consider the alignment of sections in [gp-2K,gp+2K). */
+	  bfd_vma new_max_alignment = _bfd_riscv_get_max_alignment_in_itype (sec, gp);
+	  if (new_max_alignment)
+	    max_alignment = new_max_alignment;
+	}
     }
 
   /* Is the reference in range of x0 or gp?
@@ -4656,6 +4716,13 @@ _bfd_riscv_relax_pc (bfd *abfd ATTRIBUTE_UNUSED,
       if (h->u.def.section->output_section == sym_sec->output_section
 	  && sym_sec->output_section != bfd_abs_section_ptr)
 	max_alignment = (bfd_vma) 1 << sym_sec->output_section->alignment_power;
+      else if (!undefined_weak)
+	{
+	  /* Otherwise, consider the alignment of sections in [gp-2K,gp+2K). */
+	  bfd_vma new_max_alignment = _bfd_riscv_get_max_alignment_in_itype (sec, gp);
+	  if (new_max_alignment)
+	    max_alignment = new_max_alignment;
+	}
     }
 
   /* Is the reference in range of x0 or gp?
