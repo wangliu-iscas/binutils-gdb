@@ -2332,6 +2332,13 @@
 #define MASK_TH_SYNC_IS 0xffffffff
 #define MATCH_TH_SYNC_S 0x0190000b
 #define MASK_TH_SYNC_S 0xffffffff
+/* Vendor-specific SiFive cache control instructions.  */
+#define MATCH_SF_CFLUSH_D_L1 0xfc000073
+#define MASK_SF_CFLUSH_D_L1 0xfff07fff
+#define MATCH_SF_CDISCARD_D_L1 0xfc200073
+#define MASK_SF_CDISCARD_D_L1 0xfff07fff
+#define MATCH_SF_CFLUSH_I_L1 0xfc100073
+#define MASK_SF_CFLUSH_I_L1 0xffffffff
 /* Unprivileged Counter/Timers CSR addresses.  */
 #define CSR_CYCLE 0xc00
 #define CSR_TIME 0xc01
@@ -3186,6 +3193,10 @@ DECLARE_INSN(th_sync, MATCH_TH_SYNC, MASK_TH_SYNC)
 DECLARE_INSN(th_sync_i, MATCH_TH_SYNC_I, MASK_TH_SYNC_I)
 DECLARE_INSN(th_sync_is, MATCH_TH_SYNC_IS, MASK_TH_SYNC_IS)
 DECLARE_INSN(th_sync_s, MATCH_TH_SYNC_S, MASK_TH_SYNC_S)
+/* Vendor-specific SiFive cache control instructions.  */
+DECLARE_INSN(sf_cflush_d_l1, MATCH_SF_CFLUSH_D_L1, MASK_SF_CFLUSH_D_L1)
+DECLARE_INSN(sf_cdiscard_d_l1, MATCH_SF_CDISCARD_D_L1, MASK_SF_CDISCARD_D_L1)
+DECLARE_INSN(sf_cflush_i_l1, MATCH_SF_CFLUSH_I_L1, MASK_SF_CFLUSH_I_L1)
 #endif /* DECLARE_INSN */
 #ifdef DECLARE_CSR
 /* Unprivileged Counter/Timers CSRs.  */

@@ -1243,6 +1243,9 @@ static struct riscv_supported_ext riscv_supported_vendor_x_ext[] =
   {"xtheadmemidx",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
   {"xtheadmempair",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
   {"xtheadsync",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+  {"xsfcdiscarddlone",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+  {"xsfcflushdlone",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+  {"xsfcflushilone",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
   {NULL, 0, 0, 0, 0}
 };
 
@@ -2434,6 +2437,12 @@ riscv_multi_subset_supports (riscv_parse_subset_t *rps,
       return riscv_subset_supports (rps, "xtheadmempair");
     case INSN_CLASS_XTHEADSYNC:
       return riscv_subset_supports (rps, "xtheadsync");
+    case INSN_CLASS_XSF_CDISCARDDLONE:
+      return riscv_subset_supports (rps, "xsfcdiscarddlone");
+    case INSN_CLASS_XSF_CFLUSHDLONE:
+      return riscv_subset_supports (rps, "xsfcflushdlone");
+    case INSN_CLASS_XSF_CFLUSHILONE:
+      return riscv_subset_supports (rps, "xsfcflushilone");
     default:
       rps->error_handler
         (_("internal: unreachable INSN_CLASS_*"));
@@ -2588,6 +2597,12 @@ riscv_multi_subset_supports_ext (riscv_parse_subset_t *rps,
       return "xtheadmempair";
     case INSN_CLASS_XTHEADSYNC:
       return "xtheadsync";
+    case INSN_CLASS_XSF_CDISCARDDLONE:
+      return "xsfcdiscarddlone";
+    case INSN_CLASS_XSF_CFLUSHDLONE:
+      return "xsfcflushdlone";
+    case INSN_CLASS_XSF_CFLUSHILONE:
+      return "xsfcflushilone";
     default:
       rps->error_handler
         (_("internal: unreachable INSN_CLASS_*"));

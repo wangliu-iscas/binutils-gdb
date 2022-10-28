@@ -2001,6 +2001,11 @@ const struct riscv_opcode riscv_opcodes[] =
 {"th.sync.is",       0, INSN_CLASS_XTHEADSYNC,  "",   MATCH_TH_SYNC_IS,       MASK_TH_SYNC_IS,       match_opcode, 0},
 {"th.sync.s",        0, INSN_CLASS_XTHEADSYNC,  "",   MATCH_TH_SYNC_S,        MASK_TH_SYNC_S,        match_opcode, 0},
 
+/* Vendor-specific SiFive cache control instructions.  */
+{"sf.cflush.d.l1",   0, INSN_CLASS_XSF_CFLUSHDLONE,   "s", MATCH_SF_CFLUSH_D_L1, MASK_SF_CFLUSH_D_L1, match_opcode, 0 },
+{"sf.cdiscard.d.l1", 0, INSN_CLASS_XSF_CDISCARDDLONE, "s", MATCH_SF_CDISCARD_D_L1, MASK_SF_CDISCARD_D_L1, match_opcode, 0 },
+{"sf.cflush.i.l1",   0, INSN_CLASS_XSF_CFLUSHILONE,   "",  MATCH_SF_CFLUSH_I_L1, MASK_SF_CFLUSH_I_L1, match_opcode, 0 },
+
 /* Terminate the list.  */
 {0, 0, INSN_CLASS_NONE, 0, 0, 0, 0, 0}
 };
