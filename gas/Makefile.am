@@ -70,6 +70,8 @@ GAS_CFILES = \
 	atof-generic.c \
 	compress-debug.c \
 	cond.c \
+	sframe-opt.c \
+	gen-sframe.c \
 	depend.c \
 	dwarf2dbg.c \
 	dw2gencfi.c \
@@ -105,6 +107,7 @@ HFILES = \
 	bit_fix.h \
 	cgen.h \
 	compress-debug.h \
+	gen-sframe.h \
 	dwarf2dbg.h \
 	dw2gencfi.h \
 	ecoff.h \
